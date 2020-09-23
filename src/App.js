@@ -1,13 +1,24 @@
 // React
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 import Post from "./components/Post";
+
+// Firebase
+import { db } from "./firebase";
 
 // CSS
 import "./App.css";
 
 function App() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    db.collection("posts").onSnapshot((snapshot) => {
+      setPosts(snapshot.docs.map((doc) => doc.data()));
+    });
+  }, [posts]);
+
   return (
     <div className="app">
       <div className="app__header">
@@ -18,7 +29,14 @@ function App() {
         />
       </div>
 
-      <Post />
+      {posts.map((post, idx) => (
+        <Post
+          key={idx}
+          imageUrl={post.imageUrl}
+          username={post.username}
+          caption={post.caption}
+        />
+      ))}
     </div>
   );
 }
