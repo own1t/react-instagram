@@ -4,10 +4,15 @@
 }
 
 .app__header {
-  object-fit: contain;
-  background-color: white;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
   padding: 20px;
+  background-color: #ffffff;
   border-bottom: 1px solid lightgray;
+  margin-bottom: 10px;
 }
 
 .app__login {
